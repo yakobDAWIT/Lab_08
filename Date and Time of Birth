@@ -1,0 +1,16 @@
+import java.util.Scanner;
+
+public class BirthDateTime
+{
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+        int year = SafeInput.getRangedInt(scanner, "Enter your birth year", 1950, 2015);
+        int month = SafeInput.getRangedInt(scanner, "Enter your birth month", 1, 12);
+        // Implementing day validation based on month would require further code.
+        int day = SafeInput.getRangedInt(scanner, "Enter your birth day", 1, 31);
+        int hours = SafeInput.getRangedInt(scanner, "Enter the hour of your birth", 1, 24);
+        int minutes = SafeInput.getRangedInt(scanner, "Enter the minutes of your birth", 1, 59);
+        System.out.println("Birth Date and Time: " + month + "/" + day + "/" + year + " " + hours + ":" + minutes);
+    }
+}
