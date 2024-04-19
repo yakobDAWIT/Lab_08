@@ -1,0 +1,102 @@
+import java.util.Scanner;
+
+public class SafeInput 
+{
+    
+    public static String getNonZeroLenString(Scanner pipe, String prompt) {
+        String retString = "";
+        do {
+            System.out.print("\n" + prompt + ": ");
+            retString = pipe.nextLine();
+        } while (retString.length() == 0);
+        return retString;
+    }
+
+    public static int getInt(Scanner pipe, String prompt) {
+        int num = 0;
+        boolean validInput = false;
+        do {
+            System.out.print("\n" + prompt + ": ");
+            if (pipe.hasNextInt()) {
+                num = pipe.nextInt();
+                validInput = true;
+            } else {
+                System.out.println("Invalid input. Please enter an integer.");
+                pipe.next(); 
+            }
+        } while (!validInput);
+        return num;
+    }
+    
+    public static double getDouble(Scanner pipe, String prompt) {
+        double num = 0.0;
+        boolean validInput = false;
+        do {
+            System.out.print("\n" + prompt + ": ");
+            if (pipe.hasNextDouble()) {
+                num = pipe.nextDouble();
+                validInput = true;
+            }
+            else {
+                System.out.println("Invalid input. Please enter a double value.");
+                pipe.next(); 
+            }
+        } 
+        while (!validInput);
+        return num;
+    }
+
+    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
+        int num;
+        do {
+            num = getInt(pipe, prompt + " [" + low + " - " + high + "]");
+        } 
+        while (num < low || num > high);
+        return num;
+    }
+    
+    public static double getRangedDouble(Scanner pipe, String prompt, double low, double high) {
+        double num;
+        do {
+            num = getDouble(pipe, prompt + " [" + low + " - " + high + "]");
+        }
+        while (num < low || num > high);
+        return num;
+    }
+
+    public static boolean getYNConfirm(Scanner pipe, String prompt) {
+        String input;
+        do {
+            input = getNonZeroLenString(pipe, prompt + " [Y/N]").toUpperCase();
+        }
+        while (!input.equals("Y") && !input.equals("N"));
+        return input.equals("Y");
+    }
+
+    public static String getRegExString(Scanner pipe, String prompt, String regEx) {
+        String input;
+        do {
+            input = getNonZeroLenString(pipe, prompt);
+        } 
+        while (!input.matches(regEx));
+        return input;
+    }
+    
+    public static void prettyHeader(String msg) {
+        int totalWidth = 60;
+        int msgWidth = msg.length();
+        int sideStars = (totalWidth - msgWidth - 2) / 2; 
+        for (int i = 0; i < totalWidth; i++) {
+            if (i == 0 || i == totalWidth - 1) {
+                System.out.print("*");
+            }
+            else if (i > sideStars && i <= (sideStars + msgWidth + 1)) {
+                System.out.print(msg.charAt(i - sideStars - 1));
+            }
+            else {
+                System.out.print(" ");
+            }
+        }
+        System.out.println();
+    }
+}
